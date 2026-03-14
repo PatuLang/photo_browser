@@ -49,7 +49,6 @@ const UserId: React.FC = () => {
                     <ul>Catch phrase: {user.company.cathPhrase}</ul>
                     <ul>Bs: {user.company.bs}</ul>
                 </div>
-                
                 <button onClick={() => navigate(-1)}>Back</button>
             </div>
 
