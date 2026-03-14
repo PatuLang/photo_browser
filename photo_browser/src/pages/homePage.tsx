@@ -3,18 +3,18 @@ import {Link} from 'react-router-dom';
 const Home: React.FC = () => {
 
     return (
-        <div>
-                <Link
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
+                <Link style={{ border: '4px solid #ccc', padding: '10px', gap: '10px' }}
                     to="/photos">
-                    Photo List
+                    Photos
                 </Link>
 
-                <Link
+                <Link style={{ border: '4px solid #ccc', padding: '10px'}}
                     to="/albums">
-                    Photo Albums
+                    Albums
                 </Link>
 
-                <Link
+                <Link style={{ border: '4px solid #ccc', padding: '10px', gap: '10px' }}
                     to="/users">
                     Users
                 </Link>
