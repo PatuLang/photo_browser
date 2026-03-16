@@ -24,8 +24,7 @@ const AlbumList: React.FC = () => {
             {albums.map((album) => (
                 <div key={album.id} style={{ border: '4px solid #ccc', padding: '10px' }}>
                     <Link 
-                        to={`/albums/${album.id}`}
-                        state={{album}}>
+                        to={`/albums/${album.id}`}>
                         <p>{album.title}</p>
                   </Link>
                 </div>

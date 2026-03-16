@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Photo } from '../types';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const PhotoId: React.FC = () => {
 
-    const location = useLocation();
+    const {id} = useParams<{id: string}>();
     const navigate = useNavigate();
-    const photo = location.state?.photo as Photo
+    const [photo, setPhoto] = useState<Photo>();
+
+    useEffect(() => {
+        fetch(`https://jsonplaceholder.typicode.com/photos/${id}`)
+            .then((response) => {
+            return response.json();
+            })
+            .then((data: Photo) => {
+            setPhoto(data);
+            })
+            .catch((error) => {
+            console.error("Error fetching photo", error)
+            });
+    }, [id])
 
     if (!photo) {
-        return(<div>Error loading photo</div>)
+        return(<div>Loading photo</div>)
     };
 
     return (
@@ -27,6 +40,10 @@ const PhotoId: React.FC = () => {
             <div style={{flex: 2}}>
                 <img
                     src={`https://picsum.photos/id/${photo.id}/900/800`}
+                    onError={(e) => {
+                                    const target = e.target as HTMLImageElement;
+                                    target.src = `https://picsum.photos/seed/${photo.id}/900/800`;
+                                }}
                 />
             </div>
 

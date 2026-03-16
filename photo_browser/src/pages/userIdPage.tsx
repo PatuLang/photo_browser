@@ -1,29 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import type { User, Album } from '../types';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 const UserId: React.FC = () => {
     
-    const location = useLocation();
+    const {id} = useParams<{id: string}>();
     const navigate = useNavigate();
-    const user = location.state?.user as User;
     const [usersAlbum, setUsersAlbum] = useState<Album[]>([]);
+    const [user, setUser] = useState<User>();
 
     useEffect(() => {
-            fetch(`https://jsonplaceholder.typicode.com/albums?userId=${user.id}`)
-                .then((response) => {
-                return response.json();
-                })
-                .then((data: Album[]) => {
-                setUsersAlbum(data);
-                })
-                .catch((error) => {
-                console.error("Error fetching users album", error)
-                });
-     }, []);
+        fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+                    .then((response) => {
+                    return response.json();
+                    })
+                    .then((data: User) => {
+                    setUser(data);
+                    })
+                    .catch((error) => {
+                    console.error("Error fetching user", error)
+                    });
+
+        fetch(`https://jsonplaceholder.typicode.com/albums?userId=${id}`)
+            .then((response) => {
+            return response.json();
+            })
+            .then((data: Album[]) => {
+            setUsersAlbum(data);
+            })
+            .catch((error) => {
+            console.error("Error fetching users album", error)
+            });
+     }, [id]);
     
     if (!user) {
-        return(<div>Error loading user</div>)
+        return(<div>Loading user</div>)
     };
 
     return (
@@ -57,8 +68,7 @@ const UserId: React.FC = () => {
                 {usersAlbum.map((album) => (
                 <div key={album.id} style={{ border: '4px solid #ccc', padding: '10px' }}>
                     <Link 
-                        to={`/albums/${album.id}`}
-                        state={{album}}>
+                        to={`/albums/${album.id}`}>
                         <p>{album.title}</p>
                   </Link>
                 </div>

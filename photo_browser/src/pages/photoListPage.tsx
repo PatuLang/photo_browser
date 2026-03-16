@@ -24,10 +24,8 @@ const PhotoList: React.FC = () => {
             {photos.map((photo) => (
                 <div key={photo.id} style={{ border: '4px solid #ccc', padding: '10px' }}>
                     <Link 
-                        to={`/photos/${photo.id}`}
-                        state={{photo}}>
+                        to={`/photos/${photo.id}`}>
                             <img src={`https://picsum.photos/id/${photo.id}/150/150`}
-                                loading="lazy" 
                                 onError={(e) => {
                                     const target = e.target as HTMLImageElement;
                                     target.src = `https://picsum.photos/seed/${photo.id}/150/150`;

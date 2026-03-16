@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import type { Album, Photo } from '../types';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 const AlbumId: React.FC = () => {
     
-    const location = useLocation();
+    const {id} = useParams<{id: string}>();
     const navigate = useNavigate();
-    const album = location.state?.album as Album;
-
+    const [album, setAlbum] = useState<Album>()
     const [albumPhotos, setAlbumPhotos] = useState<Photo[]>([]);
 
     useEffect(() => {
-        fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${album.id}`)
+        fetch(`https://jsonplaceholder.typicode.com/albums/${id}`)
+            .then((response) => {
+            return response.json();
+            })
+            .then((data: Album) => {
+            setAlbum(data);
+            })
+            .catch((error) => {
+            console.error("Error fetching photos in album", error)
+            });
+
+        fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${id}`)
             .then((response) => {
             return response.json();
             })
@@ -21,10 +31,10 @@ const AlbumId: React.FC = () => {
             .catch((error) => {
             console.error("Error fetching photos in album", error)
             });
-    }, []);
+    }, [id]);
     
     if (!album) {
-        return(<div>Error loading album</div>)
+        return(<div>Loading album</div>)
     };
 
     return (

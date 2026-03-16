@@ -24,8 +24,7 @@ const UserList: React.FC = () => {
             {users.map((user) => (
                 <div key={user.id} style={{ border: '4px solid #ccc', padding: '10px' }}>
                     <Link 
-                        to={`/users/${user.id}`}
-                        state={{user}}>
+                        to={`/users/${user.id}`}>
                         <p>{user.name}</p>
                     </Link>
                 </div>
