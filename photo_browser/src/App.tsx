@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import NoPage from './pages/noPage';
 import Home from './pages/homePage';
 import PhotoList from './pages/photoListPage';
@@ -8,7 +8,7 @@ import UserId from './pages/userIdPage';
 import AlbumList from './pages/albumListPage';
 import AlbumId from './pages/albumIdPage';
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {path: "/", element: <Home/>},
   {path: "/home", element: <Home/>},
   {path: "/photos", element: <PhotoList/>},
