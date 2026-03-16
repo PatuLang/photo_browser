@@ -19,6 +19,10 @@ const UserList: React.FC = () => {
             });
     }, []);
 
+    if (!users) {
+        return(<div>Loading users</div>)
+    };
+
     return (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '100px' }}>
             {users.map((user) => (

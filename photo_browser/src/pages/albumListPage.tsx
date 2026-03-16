@@ -19,6 +19,10 @@ const AlbumList: React.FC = () => {
             });
     }, []);
 
+    if (!albums) {
+        return(<div>Loading albums</div>)
+    };
+
     return (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '100px' }}>
             {albums.map((album) => (

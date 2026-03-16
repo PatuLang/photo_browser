@@ -19,6 +19,10 @@ const PhotoList: React.FC = () => {
             });
     }, []);
 
+    if (!photos) {
+        return(<div>Loading photos</div>)
+    };
+
     return (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '10px' }}>
             {photos.map((photo) => (
